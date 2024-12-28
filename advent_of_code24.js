@@ -8,9 +8,10 @@
 
 
 const fileInput = document.getElementById('fileInput');
-const adventDay = 2;
+const adventDay = 3;
 const startComputationEvent = new CustomEvent('startComputation', { detail: { day: adventDay } });
 var dataArray = [];
+var dataString;
 
 document.addEventListener('startComputation', (event) => {
     if (adventDay === 1) {
@@ -19,6 +20,9 @@ document.addEventListener('startComputation', (event) => {
     if (adventDay === 2) {
         solvePuzzleDayTwo(dataArray);
     }  
+    if (adventDay === 3){
+        dayThreeProcessing(dataString);
+    }
 });
 
 fileInput.addEventListener('change', (event) => {
@@ -34,6 +38,7 @@ fileInput.addEventListener('change', (event) => {
             // Split the content by newlines to create an array
             //const dataArray = fileContent.split('\n').map(line => line.trim()); // Optional trim to remove extra spaces
             dataArray = fileContent.split('\n'); // Optional trim to remove extra spaces
+            dataString = e.target.result;
             document.dispatchEvent(startComputationEvent);                  
         };
 
@@ -528,6 +533,52 @@ function testingDayTwo() {
     }
 }
 
+function dayThreeProcessing(inputString) {
+    var arrayResult = inputString.match(/mul\(\d{1,3},\d{1,3}\)/g);
+    var operandArray = [];
+    console.log(arrayResult.length)
+    for (var i = 0; i < arrayResult.length; i++) {
+        operandArray.push(arrayResult[i].match(/\d{1,3}/g));
+    }
+    console.log(operandArray.length);
+    var allMultiplicationResults = operandArray.map(convertToIntandMultiply);
+    //alt syntax
+    //var allMultiplicationResults = operandArray.map(value => convertToIntandMultiply(value));
+    console.log(allMultiplicationResults.length);
+    var sumOfAllMultiplications = allMultiplicationResults.reduce((sum, value) => {return sum + value});
+    console.log(sumOfAllMultiplications);
+
+///part 2
+    operandArray = [];
+    var doSelect = true;
+    var posOfDoSelect = 1;
+    arrayResult = inputString.match(/mul\(\d{1,3},\d{1,3}\)|do\(\)|don't\(\)/g);
+    for (var i = 0; i < arrayResult.length; i++) {
+        posOfDoSelect = arrayResult[i].search(/do\(\)/);
+        if (posOfDoSelect !== -1) {
+            doSelect = true;
+            continue;
+        } 
+        posOfDoSelect = arrayResult[i].search(/don't\(\)/);
+        if (posOfDoSelect !== -1) {
+            doSelect = false;
+            continue;
+        }
+        if (doSelect) {
+            operandArray.push(arrayResult[i].match(/\d{1,3}/g));
+        }
+    }
+    console.log(operandArray.length)
+    allMultiplicationResults = operandArray.map(convertToIntandMultiply);
+    sumOfAllMultiplications = allMultiplicationResults.reduce((sum, value) => {return sum + value});
+    console.log(sumOfAllMultiplications);
+
+
+}
+
+function convertToIntandMultiply(value) {
+    return (parseInt(value[0]) * parseInt(value[1]));
+}
 
 
 
