@@ -8,7 +8,7 @@
 
 
 const fileInput = document.getElementById('fileInput');
-const adventDay = 3;
+const adventDay = 4;
 const startComputationEvent = new CustomEvent('startComputation', { detail: { day: adventDay } });
 var dataArray = [];
 var dataString;
@@ -22,6 +22,9 @@ document.addEventListener('startComputation', (event) => {
     }  
     if (adventDay === 3){
         dayThreeProcessing(dataString);
+    }
+    if (adventDay === 4) {
+        dayFourProcessing(dataArray);
     }
 });
 
@@ -578,6 +581,18 @@ function dayThreeProcessing(inputString) {
 
 function convertToIntandMultiply(value) {
     return (parseInt(value[0]) * parseInt(value[1]));
+}
+
+function dayFourProcessing(dataArray) {
+//    console.log(dataArray)
+    var crossword = [];
+    for (var xAxis of dataArray) {
+        var xline = xAxis.split('');
+        crossword.push(xline)
+    }
+    dayFourPartOne(crossword, "XMAS");
+    dayFourPartTwo(crossword, "MAS");
+
 }
 
 
