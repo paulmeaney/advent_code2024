@@ -23,7 +23,7 @@ function determineTargetFromInputs(numberOperators){ //operators increased in pa
             var code = i.toString(numberOperators);
             code = code.padStart(n-1, "0");
             if (evaluateResult(inputData[targetIdx].inputs, code) === targetValue) {
-                console.log("Found a match!!: " + inputData[targetIdx].inputs + " target value: " + inputData[targetIdx].target + " code: " + code);
+                //console.log("Found a match!!: " + inputData[targetIdx].inputs + " target value: " + inputData[targetIdx].target + " code: " + code);
                 valuesWithMatches.push(inputData[targetIdx].target);
                 break;
             }
