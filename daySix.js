@@ -6,17 +6,22 @@ var completePath = [];
 
 
 function daySixProcessing(inputString) {
-    const tempYAxis = inputString.split('\n');
+    buildMap(inputString);
+    console.log("Map loading done");
+    plotMovementThroughMap();
+    partTwoBuildPath();
+    bruteForcePart2();
+}
+
+function buildMap(mapString){
+    const tempYAxis = mapString.split('\n');
     for (var y = 0; y < tempYAxis.length; y++) {
         var tempXAxis = tempYAxis[y].split("");
         for (var x =  0; x < tempXAxis.length; x++){
             worldMap.set((x + "_" + y), tempXAxis[x]);
         }
     }
-    console.log("Map loading done");
-    plotMovementThroughMap();
-    partTwoBuildPath();
-    bruteForcePart2();
+    console.log("Map Loaded Successfully")
 }
 
 function plotMovementThroughMap(){

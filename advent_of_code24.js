@@ -8,7 +8,7 @@
 
 
 const fileInput = document.getElementById('fileInput');
-const adventDay = 8;
+const adventDay = 11;
 const startComputationEvent = new CustomEvent('startComputation', { detail: { day: adventDay } });
 var dataArray = [];
 var dataString;
@@ -37,6 +37,15 @@ document.addEventListener('startComputation', (event) => {
     }
     if (adventDay === 8) {
         dayEightProcessing(dataString);
+    }
+    if (adventDay === 9) {
+        dayNineProcessing(dataString);
+    }
+    if (adventDay === 10) {
+        dayTenProcessing(dataString);
+    }
+    if (adventDay === 11) {
+        dayElevenProcessing(dataString);
     }
 });
 
